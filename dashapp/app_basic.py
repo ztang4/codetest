@@ -16,25 +16,28 @@ app = dash.Dash(__name__)
 # reference https://plotly.com/python/figure-structure/
 
 fig3 = ({
-    'data': [{'hovertemplate': 'x=%{x}<br>y=%{y}<extra></extra>',
-              'legendgroup': '',
-              'line': {'color': '#636efa', 'dash': 'solid'},
-              'marker': {'symbol': 'circle'},
-              'mode': 'lines',
-              'name': '',
-              'orientation': 'v',
-              'showlegend': False,
-              'type': 'scatter',
-              'x': ['a', 'b', 'c'] ,
-              'xaxis': 'x',
+    'data': [{#'hovertemplate': 'x=%{x}<br>y=%{y}<extra></extra>',
+              #'legendgroup': '',
+              #'line': {'color': '#636efa', 'dash': 'solid'},
+              #'marker': {'symbol': 'circle'},
+              #'mode': 'lines',
+              #'name': '',
+              #'orientation': 'v',
+              #'showlegend': True,
+              #'type': 'scatter',
+              #'x': ['a', 'b', 'c'] ,
+              #'xaxis': 'x',
               'y': [10, 3, 2],
               'yaxis': 'y'}],
-    'layout': {'height': 625,
-               'legend': {'tracegroupgap': 0},
-               'template': '...',
-               'title': {'text': 'sample figure'},
-               'xaxis': {'anchor': 'y', 'domain': [0.0, 1.0], 'title': {'text': 'x'}},
-               'yaxis': {'anchor': 'x', 'domain': [0.0, 1.0], 'title': {'text': 'y'}}}
+    'layout': {
+               #'height': 625,
+               #'width': 500,
+               #'legend': {'tracegroupgap': 1},
+               #'template': '...',
+               #'title': {'text': 'sample figure'}#,
+               #'xaxis': {'anchor': 'y', 'domain': [0.0, 1.0], 'title': {'text': 'x'}},
+               #'yaxis': {'anchor': 'x', 'domain': [0.0, 1.0], 'title': {'text': 'y'}}
+               }
 })
 
 
