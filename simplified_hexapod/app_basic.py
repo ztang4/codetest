@@ -280,9 +280,9 @@ HEXAPOD_FIGURE = {
             },
             "zaxis": {
                 "nticks": 1,
-                "range": [-600, -10],
+                "range": [-600, 600],
                 "zerolinecolor": AXIS_ZERO_LINE_COLOR,
-                "showbackground": True,
+                "showbackground": False,
                 "backgroundcolor": GROUND_COLOR,
             },
         },

@@ -4,6 +4,8 @@ import dash_html_components as html
 import dash_core_components as dcc
 import plotly.graph_objects as go
 import dash
+import time
+from dash.dependencies import Input, Output, State
 
 BODY_COLOR = "#8e44ad"
 BODY_OUTLINE_WIDTH = 10
@@ -46,55 +48,41 @@ HEXAPOD_FIGURE = {
             "bgcolor": LEGENDS_BG_COLOR,
             "font": {"family": "courier", "size": 12, "color": LEGEND_FONT_COLOR},
         },
-         "margin": {"b": 20, "l": 10, "r": 10, "t": 20},
-        "scene": {
-            "aspectmode": "manual",
-            "aspectratio": {"x": 1, "y": 1, "z": 1},
-            "camera": {
-                "center": {
-                    "x": 0.0348603742736399,
-                    "y": 0.16963779995083,
-                    "z": -0.394903376555686,
-                },
-                "eye": {
-                    "x": 0.193913968006015,
-                    "y": 0.45997575676993,
-                    "z": -0.111568465000231,
-                },
-                "up": {"x": 0, "y": 0, "z": 1},
-            },
-            "xaxis": {
-                "nticks": 1,
-                "range": [-600, 600],
-                "zerolinecolor": AXIS_ZERO_LINE_COLOR,
-                "showbackground": False,
-            },
-            "yaxis": {
-                "nticks": 1,
-                "range": [-600, 600],
-                "zerolinecolor": AXIS_ZERO_LINE_COLOR,
-                "showbackground": False,
-            }
-         }
     }
 }
-# HEXAPOD_FIGURE = {
-#     "data": data,
-#     'layout': {'template': '...'}
-# }
-app = dash.Dash(__name__)
 
+HEXAPOD_FIGURE["data"][0]['x'] = [100.0, 100.0, -100.0, -100.0, -100.0, 100.0, 300.0]
+HEXAPOD_FIGURE["data"][1]['x'] = [300.0, 100.0, -100.0, -100.0, -100.0, 100.0, 100.0]
+
+print(HEXAPOD_FIGURE["data"][0]['x'])
+print(HEXAPOD_FIGURE["data"][1]['x'])
+app = dash.Dash(__name__)
 app.layout = html.Div(
     children=[   
             html.Div(className='eight columns div-for-charts bg-grey',
                     children=[
                     dcc.Graph(id='timeseries', figure=HEXAPOD_FIGURE)
-            ])
-                            
+            ]),
+            html.Button(id='submit-button-state', n_clicks=0, children='Submit')                            
         ]
-
 )
 
+@app.callback(Output('timeseries', 'figure'),Input('submit-button-state', 'n_clicks'))
+def update_output(n_clicks):    
+    print("clicked:")
+    print(n_clicks)
+
+    if(n_clicks%2):
+        HEXAPOD_FIGURE["data"][0]['x'] = [100.0, 100.0, -100.0, -100.0, -100.0, 100.0, 100.0]
+        HEXAPOD_FIGURE["data"][1]['x'] = [100.0, 100.0, -100.0, -100.0, -100.0, 100.0, 100.0]
+    else:
+        HEXAPOD_FIGURE["data"][0]['x'] = [100.0, 100.0, -100.0, -100.0, -100.0, 100.0, 300.0]
+        HEXAPOD_FIGURE["data"][1]['x'] = [300.0, 100.0, -100.0, -100.0, -100.0, 100.0, 100.0]
+
+    return HEXAPOD_FIGURE
 
 if __name__ == '__main__':
     app.run_server(debug=True)
+    for i in range(10):
+        time.sleep(1);
+        print(i)
